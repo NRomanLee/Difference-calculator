@@ -44,6 +44,6 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           make test-coverage
-          ./cc-reporter after-build --exit-code 0 --debug -r ${{ secrets.CC_TEST_REPORTER_ID }}
+          ./cc-reporter after-build --exit-code 0 --debug -r $CC_TEST_REPORTER_ID
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
