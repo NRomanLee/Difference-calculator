@@ -1,5 +1,6 @@
 from gendiff.parser import parse_file
 
+
 def generate_diff(file_path1, file_path2):
     data1 = parse_file(file_path1)
     data2 = parse_file(file_path2)
@@ -15,6 +16,7 @@ def generate_diff(file_path1, file_path2):
 
     return "{\n" + "\n".join(diff_lines) + "\n}"
 
+
 def compare_keys(key, data1, data2):
     lines = []
     if key in data1 and key not in data2:
@@ -27,6 +29,7 @@ def compare_keys(key, data1, data2):
     else:
         lines.append(f'    {key}: {format_value(data1[key])}')
     return lines
+
 
 def format_value(value):
     if isinstance(value, bool):
