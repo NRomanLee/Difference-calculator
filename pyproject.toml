@@ -15,6 +15,7 @@ pytest = "^8.3.2"
 flake8 = "^7.1.0"
 pytest-cov = "^4.0.0"  # Добавлено для покрытия кода
 codeclimate-test-reporter = "^0.2.3"  # Добавлено для CodeClimate
+autopep8 = "^2.3.1"
 
 [build-system]
 requires = ["poetry-core"]
