@@ -9,12 +9,12 @@ packages = [{ include = "gendiff" }]
 [tool.poetry.dependencies]
 python = "^3.10"
 pyyaml = "^6.0.1"
+pytest-cov = "^4.1.0"
+coverage = "^7.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
 flake8 = "^7.1.0"
-pytest-cov = "^4.0.0"  # Добавлено для покрытия кода
-coverage = "^7.0"  # Обновлено для совместимости с pytest-cov
 codeclimate-test-reporter = "^0.2.3"  # Добавлено для CodeClimate
 autopep8 = "^2.3.1"
 
