@@ -1,9 +1,12 @@
-import json
+import os
+from gendiff.parser import parse_file
 
 def generate_diff(file_path1, file_path2):
-    with open(file_path1, 'r') as file1, open(file_path2, 'r') as file2:
-        data1 = json.load(file1)
-        data2 = json.load(file2)
+    data1 = parse_file(file_path1)
+    data2 = parse_file(file_path2)
+
+    if data1 is None or data2 is None:
+        raise ValueError("One of the files is empty or could not be parsed.")
 
     all_keys = sorted(set(data1.keys()).union(set(data2.keys())))
     diff_lines = []

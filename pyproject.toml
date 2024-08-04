@@ -8,6 +8,7 @@ packages = [{ include = "gendiff" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+pyyaml = "^6.0.1"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -22,3 +23,4 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 gendiff = "gendiff.cli:main"
 generate_start = "gendiff.generate_start:main"
+generate_start2 = "gendiff.generate_start2:main"
