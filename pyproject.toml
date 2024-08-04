@@ -16,7 +16,6 @@ pytest-cov = "^4.1.0"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
 flake8 = "^7.1.0"
-codeclimate-test-reporter = "^0.2.3"  # Добавлено для CodeClimate
 autopep8 = "^2.3.1"
 
 
