@@ -45,3 +45,12 @@ def test_generate_diff_plain(read_file):
     actual_diff = generate_diff(file1_path, file2_path, formatter='plain').strip()
     assert actual_diff == expected_diff
 
+def test_generate_diff_json_format(read_file):
+    file1_path = os.path.join("tests", "fixtures", "file1.json")
+    file2_path = os.path.join("tests", "fixtures", "file2.json")
+    expected_diff_path = os.path.join("tests", "fixtures", "expected_diff_json.txt")
+
+    expected_diff = read_file(expected_diff_path)
+    actual_diff = generate_diff(file1_path, file2_path, 'json').strip()
+    assert actual_diff == expected_diff
+
