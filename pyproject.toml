@@ -11,6 +11,7 @@ python = "^3.10"
 pyyaml = "^6.0.1"
 coverage = "^5.2.1" 
 pytest-cov = "^5.0.0"
+requests = "^2.25.1"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -23,6 +24,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-gendiff = "gendiff.cli:main"
-generate_start = "gendiff.generate_start:main"
-generate_start2 = "gendiff.generate_start2:main"
+gendiff = "gendiff.scripts.gendiff:main"

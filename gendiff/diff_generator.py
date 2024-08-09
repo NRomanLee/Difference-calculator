@@ -1,26 +1,41 @@
-from gendiff.parser import parse_file
-from gendiff.build_diff import build_diff
-from gendiff.format.stylish import format_stylish
-from gendiff.format.plain import format_plain
-from gendiff.format.json_formatter import format_json
+from gendiff.read_file import read_file
+from collections import OrderedDict
+from gendiff.format.stylish_formated import format_stylish
+from gendiff.format.plain_formated import format_plain
+from gendiff.format.json_formated import format_json
 
-def generate_diff(file_path1, file_path2, formatter='stylish'):
-    data1 = parse_file(file_path1)
-    data2 = parse_file(file_path2)
 
-    if data1 is None or data2 is None:
-        raise ValueError("One of the files is empty or could not be parsed.")
+def gen_diff(data1, data2) -> dict:
+    diff = {}
+    keys = set(data1.keys() | set(data2.keys()))
 
-    diff = build_diff(data1, data2)
+    for i in keys:
+        if isinstance(data1.get(i), dict) and isinstance(data2.get(i), dict):
+            diff[i] = {'type': 'nested',
+                       'value': gen_diff(data1[i], data2[i])}
+        elif i not in data1.keys():
+            diff[i] = {'type': 'added', 'value': data2[i]}
+        elif i not in data2.keys():
+            diff[i] = {'type': 'removed', 'value': data1[i]}
+        elif data1[i] == data2[i]:
+            diff[i] = {'type': 'unchanged', 'value': data1[i]}
+        else:
+            diff[i] = {'type': 'changed', 'old': data1[i], 'new': data2[i]}
 
-    # Определите, нужны ли кавычки на основе файлов или других условий
-    use_quotes = not (file_path1.endswith('stylish1.json') and file_path2.endswith('stylish2.json'))
+    return OrderedDict(sorted(diff.items(), key=lambda k: k))
 
-    if formatter == 'plain':
-        return format_plain(diff)
-    elif formatter == 'stylish':
-        return format_stylish(diff, use_quotes=use_quotes)
-    elif formatter == "json":
-        return format_json(diff)
-    else:
-        raise ValueError("Unknown Format")
+
+def generate_diff(data1: str, data2: str, format='stylish'):
+    old_file = read_file(data1)
+    new_file = read_file(data2)
+    diff = gen_diff(old_file, new_file)
+
+    match format:
+        case None:
+            return format_stylish(diff)
+        case 'stylish':
+            return format_stylish(diff)
+        case 'plain':
+            return format_plain(diff)
+        case 'json':
+            return format_json(diff)
