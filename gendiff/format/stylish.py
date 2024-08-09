@@ -3,8 +3,7 @@ def format_value(value, depth, use_quotes=True):
         indent = "    " * depth
         lines = ["{"]
         for key, sub_value in value.items():
-            lines.append(
-                f"{indent}    {key}: {format_value(sub_value, depth + 1, use_quotes)}")
+            lines.append(f"{indent}    {key}: {format_value(sub_value, depth + 1, use_quotes)}")
         lines.append(f"{indent}}}")
         return "\n".join(lines)
     elif isinstance(value, bool):
@@ -12,12 +11,11 @@ def format_value(value, depth, use_quotes=True):
     elif value is None:
         return "null"
     elif isinstance(value, str):
-        # Используем кавычки, если use_quotes равно True
         return f'"{value}"' if use_quotes else value
     else:
         return str(value)
 
-
+    
 def format_node(node, indent, depth, use_quotes):
     key = node['key']
     if node['type'] == 'added':
