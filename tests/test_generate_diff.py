@@ -26,4 +26,3 @@ jsonn = 'tests/fixtures/json.json'
 def test_generate_diff(path1, path2, format_name, expected):
     with open(expected) as expectation:
         assert generate_diff(path1, path2, format_name) == expectation.read()
-
