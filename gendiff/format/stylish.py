@@ -1,9 +1,9 @@
-def format_value(value, depth, use_quotes=True):
+def format_value(value, depth=1, is_stylish=False):
+    indent = "    " * depth
     if isinstance(value, dict):
-        indent = "    " * depth
         lines = ["{"]
         for key, sub_value in value.items():
-            lines.append(f"{indent}    {key}: {format_value(sub_value, depth + 1, use_quotes)}")
+            lines.append(f"{indent}    {key}: {format_value(sub_value, depth + 1, is_stylish)}")
         lines.append(f"{indent}}}")
         return "\n".join(lines)
     elif isinstance(value, bool):
@@ -11,10 +11,11 @@ def format_value(value, depth, use_quotes=True):
     elif value is None:
         return "null"
     elif isinstance(value, str):
-        return f'"{value}"' if use_quotes else value
+        if is_stylish:
+            return f'"{value}"'  # Добавляем кавычки для строковых значений в stylish формате
+        return f'"{value}"'
     else:
         return str(value)
-
     
 def format_node(node, indent, depth, use_quotes):
     key = node['key']
