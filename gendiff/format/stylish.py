@@ -12,7 +12,7 @@ def format_value(value, depth=1, is_stylish=False):
         return "null"
     elif isinstance(value, str):
         if is_stylish:
-            return f'"{value}"'  # Добавляем кавычки для строковых значений в stylish формате
+            return f'"{value}"'  
         return f'"{value}"'
     else:
         return str(value)
