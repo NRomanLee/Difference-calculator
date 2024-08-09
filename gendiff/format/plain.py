@@ -10,6 +10,7 @@ def format_value(value):
     else:
         return str(value)
 
+
 def format_plain(diff, parent=''):
     lines = []
 
@@ -18,13 +19,15 @@ def format_plain(diff, parent=''):
         full_path = f"{parent}.{key}" if parent else key
 
         if node['type'] == 'added':
-            lines.append(f"Property '{full_path}' was added with value: {format_value(node['value'])}")
+            lines.append(
+                f"Property '{full_path}' was added with value: {format_value(node['value'])}")
         elif node['type'] == 'removed':
             lines.append(f"Property '{full_path}' was removed")
-        elif node['type'] == 'changed':  
+        elif node['type'] == 'changed':
             old_value = format_value(node['old_value'])
             new_value = format_value(node['new_value'])
-            lines.append(f"Property '{full_path}' was updated. From {old_value} to {new_value}")
+            lines.append(
+                f"Property '{full_path}' was updated. From {old_value} to {new_value}")
         elif node['type'] == 'nested':
             lines.append(format_plain(node['children'], full_path))
 

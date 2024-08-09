@@ -29,7 +29,7 @@ def build_diff(data1, data2):
             })
         else:
             diff.append({
-                'type': 'changed', 
+                'type': 'changed',
                 'key': key,
                 'old_value': data1[key],
                 'new_value': data2[key]
