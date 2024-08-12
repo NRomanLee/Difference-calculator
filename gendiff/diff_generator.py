@@ -9,18 +9,18 @@ def gen_diff(data1, data2) -> dict:
     diff = {}
     keys = set(data1.keys() | set(data2.keys()))
 
-    for i in keys:
-        if isinstance(data1.get(i), dict) and isinstance(data2.get(i), dict):
-            diff[i] = {'type': 'nested',
-                       'value': gen_diff(data1[i], data2[i])}
-        elif i not in data1.keys():
-            diff[i] = {'type': 'added', 'value': data2[i]}
-        elif i not in data2.keys():
-            diff[i] = {'type': 'removed', 'value': data1[i]}
-        elif data1[i] == data2[i]:
-            diff[i] = {'type': 'unchanged', 'value': data1[i]}
+    for key in keys:
+        if isinstance(data1.get(key), dict) and isinstance(data2.get(key), dict):
+            diff[key] = {'type': 'nested',
+                         'value': gen_diff(data1[key], data2[key])}
+        elif key not in data1.keys():
+            diff[key] = {'type': 'added', 'value': data2[key]}
+        elif key not in data2.keys():
+            diff[key] = {'type': 'removed', 'value': data1[key]}
+        elif data1[key] == data2[key]:
+            diff[key] = {'type': 'unchanged', 'value': data1[key]}
         else:
-            diff[i] = {'type': 'changed', 'old': data1[i], 'new': data2[i]}
+            diff[key] = {'type': 'changed', 'old': data1[key], 'new': data2[key]}
 
     return OrderedDict(sorted(diff.items(), key=lambda k: k))
 
